@@ -52,7 +52,7 @@ body{
     background-color: transparent;
     color: whitesmoke;
     font-size:8vh;
-    text-align: center;
+    text-align: center; 
     border: 0px solid;
     transition: 0.5s ease-in-out;
 }
