@@ -36,6 +36,12 @@
         $('#search-module').mouseout(()=>{
             $('#type-in').css({'width':'0%'});
         })
+        $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
+    $(this).mouseover(()=>{$(this).css({'font-family': 'MollenBold'})});
+});
+    $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
+    $(this).mouseout(()=>{$(this).css({'font-family': 'MollenLight'})});
+    });
     })
     </script>
 </body>

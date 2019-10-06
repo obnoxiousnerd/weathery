@@ -1,6 +1,10 @@
 @font-face{
-    font-family: 'Mollen';
-    src: url('mollen.otf');
+    font-family: 'MollenLight';
+    src: url('mollen-light.otf');
+}
+@font-face{
+    font-family: 'MollenBold';
+    src: url('mollen-bold.otf');
 }
 input:focus,
 select:focus,
@@ -20,7 +24,7 @@ body{
     background-repeat: no-repeat;
     flex-direction: column;
     color: aliceblue;
-    font-family: 'Mollen';
+    font-family: 'MollenLight';
 }
 #search-module{
     transition:0.5s; 
@@ -36,7 +40,7 @@ body{
     border: 0px solid;
     border-bottom-color: white;
     border-bottom-width: 1px; 
-    font-family: 'Mollen';
+    font-family: 'MollenLight';
     transition: 0.5s;
     
 }
