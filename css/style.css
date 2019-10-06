@@ -51,7 +51,7 @@ body{
     height: 6vh;
     background-color: transparent;
     color: whitesmoke;
-    font-size:5vh;
+    font-size:8vh;
     text-align: center;
     border: 0px solid;
     transition: 0.5s ease-in-out;
@@ -67,4 +67,7 @@ body{
  #temp-holder #sign{
      margin: 2vh;
      color: blue;
+ }
+ #city-name,#temp-holder,#humid-data,#weather-con{
+     transition: 0.5s ease-in-out;
  }

@@ -32,9 +32,11 @@
         $('#type-in').css('width','0%');
         $('#search-module').mouseover(()=>{
             $('#type-in').css({'width':'50%'});
+            $('#submit-btn').css({'font-size':'5vh'});
         })
         $('#search-module').mouseout(()=>{
             $('#type-in').css({'width':'0%'});
+            $('#submit-btn').css({'font-size':'8vh'});
         })
         $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
     $(this).mouseover(()=>{$(this).css({'font-family': 'MollenBold'})});
@@ -42,7 +44,13 @@
     $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
     $(this).mouseout(()=>{$(this).css({'font-family': 'MollenLight'})});
     });
-    })
+    $('#icon-holder').mouseover(()=>{
+        $('#icon-holder').css({'width': '200px', 'height': '200px', 'transition': '0.5s ease-in-out'});
+    });
+    $('#icon-holder').mouseout(()=>{
+        $('#icon-holder').css({'width': '100px', 'height': '100px', 'transition': '0.5s ease-in-out'});
+    });
+    });
     </script>
 </body>
 </html>
