@@ -39,21 +39,31 @@ const getWeather = () => {
 var btn =  Ω('#submit-btn');
 var temp =  Ω('#temp-data');
 var humidity =  Ω('#humid-data');
+const keey = 'f672ff13193bfcc40427a678ebfdbc71';
 var city =  Ω('#city-name');
 var condition =  Ω('#weather-con');
 var icon =  Ω('#icon-holder');
 var sign =  Ω('#sign');
     const findcoords = 'https://nominatim.openstreetmap.org/search/'+cityname+'?format=json&addressdetails=1&limit=1&polygon_svg=0';
+    console.log(findcoords);
     $.getJSON(findcoords, (res)=>{
+        if(JSON.stringify(res)=='[]'){
+            city.html('Not Found');
+            temp.html('');
+            humidity.html('');
+            condition.html('');
+            sign.html('');
+            $('#icon-holder').attr('data', '');            
+    }
         const lat = res[0].lat;
         const lon = res[0].lon;
-    
         const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
             
         $.getJSON(lurl, (data)=>{
             city.html(data.display_name);
         })
-    const url = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f672ff13193bfcc40427a678ebfdbc71/'+lat+','+lon+'?units=si';
+        const prooxy = 'https://cors-anywhere.herokuapp.com/'
+    const url = prooxy+'https://api.darksky.net/forecast/'+keey+'/'+lat+','+lon+'?units=si';
     $.getJSON(url, (res)=>{
         temp.html(parseInt(res.currently.apparentTemperature));
                 temp.on('click', ()=>{
