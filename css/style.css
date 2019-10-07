@@ -71,3 +71,17 @@ body{
  #city-name,#temp-holder,#humid-data,#weather-con{
      transition: 0.5s ease-in-out;
  }
+ #geo-btn{
+    text-align: center;
+    margin: 2vh;
+    width: auto;
+    background-color: transparent;
+    color: whitesmoke;
+    font-size:8vh;
+    text-align: center;
+    border: 0px solid;
+    transition: 0.5s ease-in-out;
+ }
+ #geo-btn:hover{
+     color: aquamarine;
+ }

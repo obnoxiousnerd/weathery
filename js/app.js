@@ -3,12 +3,13 @@ $('document').ready(()=>{
 Ω('search-module').register(div);
 Ω('type-in').register(inputText);
 Ω('submit-btn').register(button);
-Ω('city-name').register(h1);
+Ω('city-name').register(h3);
 Ω('temp-data').register(h1);
 Ω('humid-data').register(h1);
 Ω('weather-con').register(p);
 Ω('icon-holder').register(object);
 Ω('temp-holder').register(div);
+Ω('geo-btn').register(button);
 var typeIn =  document.querySelector('#type-in');
 var btn =  Ω('#submit-btn');
 var temp =  Ω('#temp-data');
@@ -17,10 +18,14 @@ var city =  Ω('#city-name');
 var condition =  Ω('#weather-con');
 var icon =  Ω('#icon-holder');
 var sign =  Ω('#sign');
+var geobtn = Ω('#geo-btn')
 
 
 Ω('#submit-btn').on('click', ()=>{
     getWeather();
+});
+Ω('#geo-btn').on('click', ()=>{
+    getGeoWeather();
 })
 $('#type-in').keypress((e)=>{
     if(e.keyCode === 13){
@@ -30,8 +35,6 @@ $('#type-in').keypress((e)=>{
 });
 const getWeather = () => {
     var cityname = Ω('#type-in').val();
-    var appid = '8f0b781695b413cefc268dc91c2c32fd';
-    var url = "https://api.openweathermap.org/data/2.5/weather?q="+cityname+"&appid="+appid;
     var typeIn =  document.querySelector('#type-in');
 var btn =  Ω('#submit-btn');
 var temp =  Ω('#temp-data');
@@ -40,23 +43,32 @@ var city =  Ω('#city-name');
 var condition =  Ω('#weather-con');
 var icon =  Ω('#icon-holder');
 var sign =  Ω('#sign');
+    const findcoords = 'https://nominatim.openstreetmap.org/search/'+cityname+'?format=json&addressdetails=1&limit=1&polygon_svg=0';
+    $.getJSON(findcoords, (res)=>{
+        const lat = res[0].lat;
+        const lon = res[0].lon;
+    
+        const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
+            
+        $.getJSON(lurl, (data)=>{
+            city.html(data.display_name);
+        })
+    const url = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f672ff13193bfcc40427a678ebfdbc71/'+lat+','+lon+'?units=si';
     $.getJSON(url, (res)=>{
-        city.html(res.name);
-
-        humidity.html(res.main.humidity+"%");
-        temp.html(parseInt(res.main.temp - 273));
-        sign.html('C');
-        temp.on('click', ()=>{
-            if(temp.html() == parseInt(res.main.temp - 273) && Ω('#sign').html()=='C'){
-            temp.html((parseInt(res.main.temp - 273)*(9/5)+32));
-            sign.html('F');
-        }
-            else{
-            temp.html(parseInt(res.main.temp - 273));
-            sign.html('C');}
-        });
-        condition.html(res.weather[0].description);
-        iconify(res.weather[0].icon);
+        temp.html(parseInt(res.currently.apparentTemperature));
+                temp.on('click', ()=>{
+                    if(temp.html() == parseInt(res.currently.apparentTemperature) && Ω('#sign').html()=='C'){
+                    temp.html(((parseInt(res.currently.apparentTemperature)*1.8)+32));
+                    sign.html('F');
+                }
+                    else{
+                    temp.html(parseInt(res.currently.apparentTemperature));
+                    sign.html('C');}
+                });
+                sign.html('C');
+                condition.html(res.currently.summary);
+                iconify(res.currently.icon);
+                humidity.html(parseFloat(res.currently.humidity)*100+'%');
     })
     .fail(()=>{
         city.html('Not Found');
@@ -66,4 +78,44 @@ var sign =  Ω('#sign');
         sign.html('');
         $('#icon-holder').attr('data', '');
     })
+})
+}
+const getGeoWeather= () => {
+    if ("geolocation" in navigator) {
+        var typeIn =  document.querySelector('#type-in');
+        var btn =  Ω('#submit-btn');
+        var temp =  Ω('#temp-data');
+        var humidity =  Ω('#humid-data');
+        var city =  Ω('#city-name');
+        var condition =  Ω('#weather-con');
+        var icon =  Ω('#icon-holder');
+        var sign =  Ω('#sign');
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const url = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f672ff13193bfcc40427a678ebfdbc71/'+lat+','+lon+'?units=si';
+            const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
+            $.getJSON(lurl, (data)=>{
+                city.html(data.display_name);
+            })
+            $.getJSON(url, (res)=>{
+                temp.html(parseInt(res.currently.apparentTemperature));
+                temp.on('click', ()=>{
+                    if(temp.html() == parseInt(res.currently.apparentTemperature) && Ω('#sign').html()=='C'){
+                    temp.html(((parseInt(res.currently.apparentTemperature)*1.8)+32));
+                    sign.html('F');
+                }
+                    else{
+                    temp.html(parseInt(res.currently.apparentTemperature));
+                    sign.html('C');}
+                });
+                sign.html('C');
+                condition.html(res.currently.summary);
+                iconify(res.currently.icon);
+                humidity.html(parseFloat(res.currently.humidity)*100+'%');
+            })
+          });
+      } else {
+        alert('Geolocation is not possible.');
+      }
 }

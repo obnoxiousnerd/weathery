@@ -13,6 +13,7 @@
             <type-in></type-in>
             <submit-btn><i class="fal fa-search"></i></submit-btn>
         </search-module>
+        <br><geo-btn><i class="fal fa-map-marker-alt"></i></geo-btn>
         <city-name></city-name>
         <icon-holder></icon-holder><br>
         <weather-con></weather-con>
@@ -33,7 +34,7 @@
         $('#type-in').css('width','0%');
         $('#search-module').mouseover(()=>{
             $('#type-in').css({'width':'50%'});
-            $('#submit-btn').css({'font-size':'5vh'});
+            $('#submit-btn').css({'font-size':'5vh'}); 
         })
         $('#search-module').mouseout(()=>{
             $('#type-in').css({'width':'0%'});

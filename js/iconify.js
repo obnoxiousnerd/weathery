@@ -1,26 +1,22 @@
 const iconify = (icon) => {
-    if(icon == '01d')
+    if(icon == 'clear-day')
     $('#icon-holder').attr('data', 'svg/Sun.svg');
-    else if(icon == '01n')
+    else if(icon == 'clear-night')
     $('#icon-holder').attr('data', 'svg/Moon.svg');
-    else if(icon == '50d'|| icon == '50n')
-    $('#icon-holder').attr('data', 'svg/Tornado.svg');
-    else if(icon == '02d')
+    else if( icon == 'partly-cloudy-day')
     $('#icon-holder').attr('data', 'svg/Cloud-Sun.svg');
-    else if(icon == '02n')
+    else if(icon == 'partly-cloudy-night')
     $('#icon-holder').attr('data', 'svg/Cloud-Moon.svg');
-    else if(icon == '03d')
-    $('#icon-holder').attr('data', 'svg/Cloud-Fog-Sun-Alt.svg');
-     else if(icon == '03n')
-    $('#icon-holder').attr('data', 'svg/Cloud-Fog-Moon-Alt.svg');
-    else if(icon == '04n' || icon == '04d')
+    else if(icon == 'cloudy')
     $('#icon-holder').attr('data', 'svg/Cloud.svg');
-    else if(icon == '13d')
+    else if(icon == 'snow')
     $('#icon-holder').attr('data', 'svg/Snowflake.svg');    
-    else if(icon == '10d')
-    $('#icon-holder').attr('data', 'svg/Cloud-Drizzle-Sun.svg');
-    else if(icon == '09d')
-    $('#icon-holder').attr('data', 'svg/Cloud-Drizzle-Moon.svg');
-    else if(icon == '11d')
-    $('#icon-holder').attr('data', 'svg/Cloud-Lightning.svg');
+    else if(icon == 'rain')
+    $('#icon-holder').attr('data', 'svg/Cloud-Rain.svg');    
+    else if(icon == 'sleet')
+    $('#icon-holder').attr('data', 'svg/Cloud-Drizzle.svg');    
+    else if(icon == 'wind')
+    $('#icon-holder').attr('data', 'svg/Wind.svg');    
+    else if(icon == 'fog')
+    $('#icon-holder').attr('data', 'svg/Cloud-Fog-Alt.svg');
 }
