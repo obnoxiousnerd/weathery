@@ -22,6 +22,7 @@
         <p id="sign"></p>
     </temp-holder>
         <humid-data></humid-data>
+        <we-predict></we-predict>
     </weather-module>
     <script src="js/custags.js"></script>
     <script src="js/iconify.js"></script>
@@ -40,10 +41,10 @@
             $('#type-in').css({'width':'0%'});
             $('#submit-btn').css({'font-size':'8vh','color': 'rgb(107, 223, 223)'});
         })
-        $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
+        $("#city-name,#temp-holder,#humid-data,#weather-con,#we-predict").each(function(){
     $(this).mouseover(()=>{$(this).css({'font-family': 'MollenBold', 'transform': 'scale(1.2)'})});
 });
-    $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
+    $("#city-name,#temp-holder,#humid-data,#weather-con,#we-predict").each(function(){
     $(this).mouseout(()=>{$(this).css({'font-family': 'MollenLight', 'transform': 'scale(1)'})});
     });
     $('#icon-holder').mouseover(()=>{

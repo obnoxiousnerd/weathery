@@ -68,7 +68,7 @@ body{
      margin: 2vh;
      color: blue;
  }
- #city-name,#temp-holder,#humid-data,#weather-con{
+ #city-name,#we-predict,#temp-holder,#humid-data,#weather-con{
      transition: 0.5s ease-in-out;
  }
  #geo-btn{
