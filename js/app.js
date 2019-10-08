@@ -141,7 +141,7 @@ const getGeoWeather= () => {
                     sign.html('C');}
                 });
                 sign.html('C');
-                condition.html(res.currently.summary);
+                condition.html(res.currently.summary);              
                 predict.html(res.hourly.summary);
                 iconify(res.currently.icon);
                 humidity.html(parseFloat(res.currently.humidity)*100+'%');
