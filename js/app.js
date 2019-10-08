@@ -45,7 +45,6 @@ var condition =  Ω('#weather-con');
 var icon =  Ω('#icon-holder');
 var sign =  Ω('#sign');
     const findcoords = 'https://nominatim.openstreetmap.org/search/'+cityname+'?format=json&addressdetails=1&limit=1&polygon_svg=0';
-    console.log(findcoords);
     $.getJSON(findcoords, (res)=>{
         if(JSON.stringify(res)=='[]'){
             city.html('Not Found');
@@ -57,22 +56,27 @@ var sign =  Ω('#sign');
     }
         const lat = res[0].lat;
         const lon = res[0].lon;
-        const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
-            
-        $.getJSON(lurl, (data)=>{
-            city.html(data.display_name);
-        })
+        if(res[0].address.city != null)
+        city.html(res[0].address.city+', '+res[0].address.country);
+        else if(res[0].address.station != null && (res[0].address.town != null || res[0].address.city != null))
+        city.html(res[0].address.station+', '+res[0].address.country);
+        else if(res[0].address.attraction != null)
+        city.html(res[0].address.attraction+', '+res[0].address.state+', '+res[0].address.country);
+        else if(res[0].address.town != null)
+        city.html(res[0].address.town+', '+res[0].address.country);
+        else if(res[0].address.peak != null)
+        city.html(res[0].address.peak+', '+res[0].address.country);
         const prooxy = 'https://cors-anywhere.herokuapp.com/'
     const url = prooxy+'https://api.darksky.net/forecast/'+keey+'/'+lat+','+lon+'?units=si';
     $.getJSON(url, (res)=>{
-        temp.html(parseInt(res.currently.apparentTemperature));
+        temp.html(parseInt(res.currently.temperature));
                 temp.on('click', ()=>{
-                    if(temp.html() == parseInt(res.currently.apparentTemperature) && Ω('#sign').html()=='C'){
-                    temp.html(((parseInt(res.currently.apparentTemperature)*1.8)+32));
+                    if(temp.html() == parseInt(res.currently.temperature) && Ω('#sign').html()=='C'){
+                    temp.html(((parseInt(res.currently.temperature)*1.8)+32));
                     sign.html('F');
                 }
                     else{
-                    temp.html(parseInt(res.currently.apparentTemperature));
+                    temp.html(parseInt(res.currently.temperature));
                     sign.html('C');}
                 });
                 sign.html('C');
@@ -105,18 +109,25 @@ const getGeoWeather= () => {
             const lon = position.coords.longitude;
             const url = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f672ff13193bfcc40427a678ebfdbc71/'+lat+','+lon+'?units=si';
             const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
-            $.getJSON(lurl, (data)=>{
-                city.html(data.display_name);
+            $.getJSON(lurl, (res)=>{
+                if(res.address.city != null)
+                    city.html(res.address.city+', '+res.address.country);
+                else if(res.address.station != null && (res.address.town != null || res.address.city != null))
+                city.html(res.address.station+', '+res.address.country);
+                else if(res.address.attraction != null)
+        city.html(res.address.attraction+', '+res.address.state+', '+res.address.country);
+                else if(res.address.town != null)
+                    city.html(res.address.town+', '+res.address.country);
             })
             $.getJSON(url, (res)=>{
-                temp.html(parseInt(res.currently.apparentTemperature));
+                temp.html(parseInt(res.currently.temperature));
                 temp.on('click', ()=>{
-                    if(temp.html() == parseInt(res.currently.apparentTemperature) && Ω('#sign').html()=='C'){
-                    temp.html(((parseInt(res.currently.apparentTemperature)*1.8)+32));
+                    if(temp.html() == parseInt(res.currently.temperature) && Ω('#sign').html()=='C'){
+                    temp.html(((parseInt(res.currently.temperature)*1.8)+32));
                     sign.html('F');
                 }
                     else{
-                    temp.html(parseInt(res.currently.apparentTemperature));
+                    temp.html(parseInt(res.currently.temperature));
                     sign.html('C');}
                 });
                 sign.html('C');

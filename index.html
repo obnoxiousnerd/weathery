@@ -34,14 +34,14 @@
         $('#type-in').css('width','0%');
         $('#search-module').mouseover(()=>{
             $('#type-in').css({'width':'50%'});
-            $('#submit-btn').css({'font-size':'5vh'}); 
+            $('#submit-btn').css({'font-size':'5vh', 'color':'whitesmoke'}); 
         })
         $('#search-module').mouseout(()=>{
             $('#type-in').css({'width':'0%'});
-            $('#submit-btn').css({'font-size':'8vh'});
+            $('#submit-btn').css({'font-size':'8vh','color': 'rgb(107, 223, 223)'});
         })
         $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
-    $(this).mouseover(()=>{$(this).css({'font-family': 'MollenBold', 'transform': 'scale(1.4)'})});
+    $(this).mouseover(()=>{$(this).css({'font-family': 'MollenBold', 'transform': 'scale(1.2)'})});
 });
     $("#city-name,#temp-holder,#humid-data,#weather-con").each(function(){
     $(this).mouseout(()=>{$(this).css({'font-family': 'MollenLight', 'transform': 'scale(1)'})});
