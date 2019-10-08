@@ -19,12 +19,15 @@ body{
     -ms-user-select : none;
     width: 100%;
     text-align: center;
-    height: 100vh;
     background: linear-gradient(rgb(24, 96, 230), rgb(18, 201, 201));
+    background-size: cover;
     background-repeat: no-repeat;
+    height: 105vh;
     flex-direction: column;
     color: aliceblue;
     font-family: 'MollenLight';
+    overflow-x: scroll;
+    overflow-y: scroll;
 }
 #search-module{
     transition:0.5s; 

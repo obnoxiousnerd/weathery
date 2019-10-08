@@ -54,6 +54,7 @@ var predict = Ω('#we-predict');
             humidity.html('');
             condition.html('');
             sign.html('');
+            predict.html('');
             $('#icon-holder').attr('data', '');            
     }
         const lat = res[0].lat;
@@ -95,6 +96,7 @@ var predict = Ω('#we-predict');
         humidity.html('');
         condition.html('');
         sign.html('');
+        predict.html('');
         $('#icon-holder').attr('data', '');
     })
 })
