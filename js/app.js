@@ -47,7 +47,6 @@ var icon =  Ω('#icon-holder');
 var sign =  Ω('#sign');
 var predict = Ω('#we-predict');
     const findcoords = 'https://nominatim.openstreetmap.org/search/'+cityname+'?format=json&addressdetails=1&limit=1&polygon_svg=0';
-    console.log(findcoords);
     $.getJSON(findcoords, (res)=>{
         if(JSON.stringify(res)=='[]'){
             city.html('Not Found');
