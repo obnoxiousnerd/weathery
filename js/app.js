@@ -11,17 +11,6 @@ $('document').ready(()=>{
 Ω('temp-holder').register(div);
 Ω('geo-btn').register(button);
 Ω('we-predict').register(p);
-var typeIn =  document.querySelector('#type-in');
-var btn =  Ω('#submit-btn');
-var temp =  Ω('#temp-data');
-var humidity =  Ω('#humid-data');
-var city =  Ω('#city-name');
-var condition =  Ω('#weather-con');
-var icon =  Ω('#icon-holder');
-var sign =  Ω('#sign');
-var geobtn = Ω('#geo-btn')
-var predict = Ω('#we-predict');
-
 Ω('#submit-btn').on('click', ()=>{
     getWeather();
 });
@@ -43,7 +32,6 @@ var humidity =  Ω('#humid-data');
 const keey = 'f672ff13193bfcc40427a678ebfdbc71';
 var city =  Ω('#city-name');
 var condition =  Ω('#weather-con');
-var icon =  Ω('#icon-holder');
 var sign =  Ω('#sign');
 var predict = Ω('#we-predict');
     const findcoords = 'https://nominatim.openstreetmap.org/search/'+cityname+'?format=json&addressdetails=1&limit=1&polygon_svg=0';
@@ -88,7 +76,7 @@ var predict = Ω('#we-predict');
                 condition.html(res.currently.summary);
                 predict.html(res.hourly.summary);
                 iconify(res.currently.icon);
-                humidity.html(parseFloat(res.currently.humidity)*100+'%');
+                humidity.html(parseInt(res.currently.humidity*100)+'%');
     })
     .fail(()=>{
         city.html('Not Found');
@@ -146,7 +134,7 @@ const getGeoWeather= () => {
                 condition.html(res.currently.summary);              
                 predict.html(res.hourly.summary);
                 iconify(res.currently.icon);
-                humidity.html(parseFloat(res.currently.humidity)*100+'%');
+                humidity.html(parseInt(res.currently.humidity*100)+'%');            
             })
           });
       } else {
