@@ -7,7 +7,7 @@ $('document').ready(()=>{
 Ω('temp-data').register(h1);
 Ω('humid-data').register(h1);
 Ω('weather-con').register(p);
-Ω('icon-holder').register(object);
+Ω('icon-holder').register(canvas);
 Ω('temp-holder').register(div);
 Ω('geo-btn').register(button);
 Ω('we-predict').register(p);
@@ -43,7 +43,7 @@ var predict = Ω('#we-predict');
             condition.html('');
             sign.html('');
             predict.html('');
-            $('#icon-holder').attr('data', '');            
+            $('#icon-holder').hide();            
     }
         const lat = res[0].lat;
         const lon = res[0].lon;
@@ -62,6 +62,7 @@ var predict = Ω('#we-predict');
         const prooxy = 'https://cors-anywhere.herokuapp.com/'
     const url = prooxy+'https://api.darksky.net/forecast/'+keey+'/'+lat+','+lon+'?units=si';
     $.getJSON(url, (res)=>{
+        $('#icon-holder').show();
         temp.html(parseInt(res.currently.temperature));
                 temp.on('click', ()=>{
                     if(temp.html() == parseInt(res.currently.temperature) && Ω('#sign').html()=='C'){
@@ -85,7 +86,7 @@ var predict = Ω('#we-predict');
         condition.html('');
         sign.html('');
         predict.html('');
-        $('#icon-holder').attr('data', '');
+        $('#icon-holder').hide();
     })
 })
 }
@@ -120,6 +121,7 @@ const getGeoWeather= () => {
                 city.html(res.display_name);
             })
             $.getJSON(url, (res)=>{
+                $('#icon-holder').show();
                 temp.html(parseInt(res.currently.temperature));
                 temp.on('click', ()=>{
                     if(temp.html() == parseInt(res.currently.temperature) && Ω('#sign').html()=='C'){
@@ -140,4 +142,11 @@ const getGeoWeather= () => {
       } else {
         alert('Geolocation is not possible.');
       }
+}
+const iconify = (icon) =>{
+    const iconholder = document.querySelector('#icon-holder')
+    const skycons  = new Skycons({color : 'white'});
+    const currentIcon = icon.replace(/-/g, '_').toUpperCase();
+    skycons.set(iconholder, Skycons[currentIcon]);
+    skycons.play();
 }
