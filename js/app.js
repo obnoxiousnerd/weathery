@@ -11,6 +11,16 @@ $('document').ready(()=>{
 Ω('temp-holder').register(div);
 Ω('geo-btn').register(button);
 Ω('we-predict').register(p);
+Ω('show-more').register(button);
+Ω('extend-module').register(div);
+Ω('day-2').register(div);
+Ω('icon-2').register(canvas);
+Ω('temp-2').register(h1);
+Ω('con-2').register(p);
+Ω('day-3').register(div);
+Ω('icon-3').register(canvas);
+Ω('temp-3').register(h1);
+Ω('con-3').register(p);
 Ω('#submit-btn').on('click', ()=>{
     getWeather();
 });
@@ -62,6 +72,7 @@ var predict = Ω('#we-predict');
         const prooxy = 'https://cors-anywhere.herokuapp.com/'
     const url = prooxy+'https://api.darksky.net/forecast/'+keey+'/'+lat+','+lon+'?units=si';
     $.getJSON(url, (res)=>{
+        $('#show-more').show();
         $('#icon-holder').show();
         temp.html(parseInt(res.currently.temperature));
                 temp.on('click', ()=>{
@@ -78,6 +89,8 @@ var predict = Ω('#we-predict');
                 predict.html(res.hourly.summary);
                 iconify(res.currently.icon);
                 humidity.html(parseInt(res.currently.humidity*100)+'%');
+                getDay2(res);            
+                getDay3(res); 
     })
     .fail(()=>{
         city.html('Not Found');
@@ -87,6 +100,8 @@ var predict = Ω('#we-predict');
         sign.html('');
         predict.html('');
         $('#icon-holder').hide();
+        $('#show-more').hide();
+        $('#extend-module').hide();
     })
 })
 }
@@ -108,6 +123,7 @@ const getGeoWeather= () => {
             const lon = position.coords.longitude;
             const url = prooxy+'https://api.darksky.net/forecast/'+keey+'/'+lat+','+lon+'?units=si';
             const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
+            console.log(url);
             $.getJSON(lurl, (res)=>{
                 if(res.address.city != null)
                     city.html(res.address.city+', '+res.address.country);
@@ -121,11 +137,12 @@ const getGeoWeather= () => {
                 city.html(res.display_name);
             })
             $.getJSON(url, (res)=>{
+                $('#show-more').show();
                 $('#icon-holder').show();
                 temp.html(parseInt(res.currently.temperature));
                 temp.on('click', ()=>{
                     if(temp.html() == parseInt(res.currently.temperature) && Ω('#sign').html()=='C'){
-                    temp.html(((parseInt(res.currently.temperature)*1.8)+32));
+                    temp.html(((parseInt(res.currently.temperature)*1.8)+32).toFixed(0));
                     sign.html('F');
                 }
                     else{
@@ -136,15 +153,43 @@ const getGeoWeather= () => {
                 condition.html(res.currently.summary);              
                 predict.html(res.hourly.summary);
                 iconify(res.currently.icon);
-                humidity.html(parseInt(res.currently.humidity*100)+'%');            
+                humidity.html((parseInt(res.currently.humidity*100)).toFixed(2)+'%');
+                getDay2(res);            
+                getDay3(res);            
             })
           });
       } else {
         alert('Geolocation is not possible.');
       }
 }
-const iconify = (icon) =>{
-    const iconholder = document.querySelector('#icon-holder')
+const getDay2 = (res)=>{
+    iconify(res.daily.data[1].icon, '#icon-2')
+                $('#temp-2').html(parseInt(res.daily.data[1].temperatureHigh) + ' / ' + parseInt(res.daily.data[1].temperatureLow) +' C');            
+                $('#temp-2').click(()=>{
+                if(($('#temp-2').html()).includes('C'))
+                $('#temp-2').html(parseInt((res.daily.data[1].temperatureHigh)*1.8)+32 + ' / ' + ((parseInt(res.daily.data[1].temperatureLow)*1.8)+32) +' F');
+                else
+                $('#temp-2').html(parseInt(res.daily.data[1].temperatureHigh) + ' / ' + parseInt(res.daily.data[1].temperatureLow) +' C');            
+            });
+                $('#con-2').html(res.daily.data[1].summary);
+}
+const getDay3 = (res)=>{
+    iconify(res.daily.data[2].icon, '#icon-3')
+                $('#temp-3').html(parseInt(res.daily.data[2].temperatureHigh) + ' / ' + parseInt(res.daily.data[2].temperatureLow) +' C');            
+                $('#temp-3').click(()=>{
+                    if(($('#temp-3').html()).includes('C'))
+                $('#temp-3').html(parseInt(((res.daily.data[2].temperatureHigh)*1.8)+32) + ' / ' + ((parseInt((res.daily.data[2].temperatureLow)*1.8))+32) +' F');
+                else
+                $('#temp-3').html(parseInt(res.daily.data[2].temperatureHigh) + ' / ' + parseInt(res.daily.data[2].temperatureLow) +' C');            
+            });
+                $('#con-3').html(res.daily.data[2].summary);
+}
+const iconify = (icon, iconid) =>{
+    let iconholder;
+    if(iconid == null || iconid == undefined){
+    iconholder = document.querySelector('#icon-holder');}
+    else{
+    iconholder = document.querySelector(iconid);}
     const skycons  = new Skycons({monochrome : false});
     const currentIcon = icon.replace(/-/g, '_').toUpperCase();
     skycons.set(iconholder, Skycons[currentIcon]);

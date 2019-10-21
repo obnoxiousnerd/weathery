@@ -23,6 +23,20 @@
     </temp-holder>
         <humid-data></humid-data>
         <we-predict></we-predict>
+        <show-more hidden>Show extended forecast</show-more>
+        <extend-module hidden>
+            <day-2>
+                <icon-2 height="50" width="100"></icon-2>
+                <temp-2></temp-2>
+                <temp-2></temp-2>
+                <con-2></con-2>
+            </day-2>
+            <day-3>
+                <icon-3 height="50" width="100"></icon-3>
+                <temp-3></temp-3>
+                <con-3></con-3>
+            </day-3>
+        </extend-module>
     </weather-module>
     <script src="js/custags.js"></script>
     <script src="js/skycons.js"></script>
@@ -55,6 +69,9 @@
         $('#icon-holder').attr('height', '50');
         $('#icon-holder').attr('width', '100');
     });
+    $('#show-more').click(()=>{
+        $('#extend-module').toggle();
+    })
     });
     </script>
 </body>
