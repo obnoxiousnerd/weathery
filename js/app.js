@@ -145,7 +145,7 @@ const getGeoWeather= () => {
 }
 const iconify = (icon) =>{
     const iconholder = document.querySelector('#icon-holder')
-    const skycons  = new Skycons({color : 'white'});
+    const skycons  = new Skycons({monochrome : false});
     const currentIcon = icon.replace(/-/g, '_').toUpperCase();
     skycons.set(iconholder, Skycons[currentIcon]);
     skycons.play();

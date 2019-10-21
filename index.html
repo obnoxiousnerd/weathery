@@ -15,7 +15,7 @@
         </search-module>
         <br><geo-btn><i class="fad fa-location"></i></geo-btn>
         <city-name></city-name>
-        <icon-holder></icon-holder><br>
+        <icon-holder height="50" width="100"></icon-holder><br>
         <weather-con></weather-con>
         <temp-holder>
         <temp-data></temp-data>
@@ -46,6 +46,14 @@
 });
     $("#city-name,#temp-holder,#humid-data,#weather-con,#we-predict").each(function(){
     $(this).mouseout(()=>{$(this).css({'font-family': 'MollenLight', 'transform': 'scale(1)'})});
+    });
+    $('#icon-holder').mouseover(()=>{
+        $('#icon-holder').attr('height', '100')
+        $('#icon-holder').attr('width', '200')
+    });
+    $('#icon-holder').mouseout(()=>{
+        $('#icon-holder').attr('height', '50');
+        $('#icon-holder').attr('width', '100');
     });
     });
     </script>
