@@ -190,7 +190,8 @@ const iconify = (icon, iconid) =>{
     iconholder = document.querySelector('#icon-holder');}
     else{
     iconholder = document.querySelector(iconid);}
-    const skycons  = new Skycons({monochrome : false});
+    const skycons  = new Skycons({monochrome : false,
+                                 "resizeClear": true});
     const currentIcon = icon.replace(/-/g, '_').toUpperCase();
     skycons.set(iconholder, Skycons[currentIcon]);
     skycons.play();
