@@ -163,25 +163,33 @@ const getGeoWeather= () => {
       }
 }
 const getDay2 = (res)=>{
+    $('#temp-2').removeClass('no-cel')
     iconify(res.daily.data[1].icon, '#icon-2')
                 $('#temp-2').html(parseInt(res.daily.data[1].temperatureHigh) + ' / ' + parseInt(res.daily.data[1].temperatureLow) +' C');            
                 $('#temp-2').click(()=>{
-                if(($('#temp-2').html()).includes('C'))
-                $('#temp-2').html(parseInt((res.daily.data[1].temperatureHigh)*1.8)+32 + ' / ' + ((parseInt(res.daily.data[1].temperatureLow)*1.8)+32) +' F');
-                else
+                $('#temp-2').toggleClass('no-cel')
+                if($('#temp-2').hasClass('no-cel')){
+                $('#temp-2').html(parseInt((res.daily.data[1].temperatureHigh)*1.8)+32 + ' / ' + ((parseInt(res.daily.data[1].temperatureLow)*1.8)+32).toFixed(2) +' F');
+                }
+                else if(! $('#temp-2').hasClass('no-cel')){
                 $('#temp-2').html(parseInt(res.daily.data[1].temperatureHigh) + ' / ' + parseInt(res.daily.data[1].temperatureLow) +' C');            
+                }
             });
                 $('#con-2').html(res.daily.data[1].summary);
 }
 const getDay3 = (res)=>{
     iconify(res.daily.data[2].icon, '#icon-3')
+                $('#temp-3').removeClass('no-cel')
                 $('#temp-3').html(parseInt(res.daily.data[2].temperatureHigh) + ' / ' + parseInt(res.daily.data[2].temperatureLow) +' C');            
                 $('#temp-3').click(()=>{
-                    if(($('#temp-3').html()).includes('C'))
-                $('#temp-3').html(parseInt(((res.daily.data[2].temperatureHigh)*1.8)+32) + ' / ' + ((parseInt((res.daily.data[2].temperatureLow)*1.8))+32) +' F');
-                else
-                $('#temp-3').html(parseInt(res.daily.data[2].temperatureHigh) + ' / ' + parseInt(res.daily.data[2].temperatureLow) +' C');            
-            });
+                    $('#temp-3').toggleClass('no-cel');
+                    if($('#temp-3').hasClass('no-cel')){
+                    $('#temp-3').html(parseInt(((res.daily.data[1].temperatureHigh)*1.8)+32).toFixed(2) + ' / ' + ((parseInt(res.daily.data[1].temperatureLow)*1.8)+32).toFixed(2) +' F');
+                    }
+                    else if(! $('#temp-3').hasClass('no-cel')){
+                    $('#temp-3').html(parseInt(res.daily.data[1].temperatureHigh) + ' / ' + parseInt(res.daily.data[1].temperatureLow) +' C');            
+                    }
+                });
                 $('#con-3').html(res.daily.data[2].summary);
 }
 const iconify = (icon, iconid) =>{
