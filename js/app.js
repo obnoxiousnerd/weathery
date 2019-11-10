@@ -123,7 +123,6 @@ const getGeoWeather= () => {
             const lon = position.coords.longitude;
             const url = prooxy+'https://api.darksky.net/forecast/'+keey+'/'+lat+','+lon+'?units=si';
             const lurl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat='+lat+'&lon='+lon+'&zoom=18&addressdetails=1'
-            console.log(url);
             $.getJSON(lurl, (res)=>{
                 if(res.address.city != null)
                     city.html(res.address.city+', '+res.address.country);
